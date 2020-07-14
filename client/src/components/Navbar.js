@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { Menu, Instagram, Navigation } from "@material-ui/icons";
+import { Menu, Instagram } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import { BottomNavigationAction } from "@material-ui/core";
