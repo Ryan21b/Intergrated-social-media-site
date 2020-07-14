@@ -1,1 +1,10 @@
-MONGOURI: "mongodb+srv://Ryan21:080108888@cluster0.ms9ww.mongodb.net/UPSWIPES-SOCIAL NETWORK?retryWrites=true&w=majority";
+const express = require("express");
+const app = express;
+
+require("./shell/user");
+require("./shell/posts");
+
+app.use(express.json());
+
+app.use(require("./routes/auth"));
+app.use(require("./routes/posts"));
