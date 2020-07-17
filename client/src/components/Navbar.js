@@ -9,6 +9,7 @@ import { Menu, Instagram } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import { BottomNavigationAction } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {

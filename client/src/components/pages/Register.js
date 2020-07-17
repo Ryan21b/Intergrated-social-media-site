@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { TextField, Grid } from "@material-ui/core";
@@ -45,6 +45,22 @@ const InputField = withStyles({
 })(TextField);
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const PostData = () => {
+    fetch("http://localhost:8080/register", {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "",
+        email: "",
+        password: "",
+      }),
+    }).then((res) => res.json());
+  };
   const classes = useStyles();
   return (
     <>
@@ -60,7 +76,7 @@ const Register = () => {
                 Upswipes
               </Typography>
               <Typography variant="h6" component="h6" align="left">
-                Email:
+                Name:
                 <InputField
                   fullWidth={true}
                   label="Name"
@@ -68,11 +84,13 @@ const Register = () => {
                   variant="outlined"
                   margin="dense"
                   size="medium"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </Typography>
               <Typography variant="h6" component="h6" align="left">
-                Password:
+                Email:
                 <InputField
                   fullWidth={true}
                   label="Email"
@@ -80,6 +98,8 @@ const Register = () => {
                   variant="outlined"
                   margin="dense"
                   size="medium"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </Typography>
@@ -92,6 +112,8 @@ const Register = () => {
                   variant="outlined"
                   margin="dense"
                   size="medium"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </Typography>

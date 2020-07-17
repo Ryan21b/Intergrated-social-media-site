@@ -1,4 +1,4 @@
-import React from "react";
+import React, { UseState, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { TextField, Grid } from "@material-ui/core";
@@ -45,6 +45,9 @@ const InputField = withStyles({
   },
 })(TextField);
 const Login = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const classes = useStyles();
 
   return (

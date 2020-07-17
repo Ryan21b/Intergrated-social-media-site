@@ -6,6 +6,7 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import Register from "./components/pages/Register";
+import CreatePost from "./components/pages/CreatePost";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/createpost">
+          <CreatePost />
         </Route>
       </BrowserRouter>
     </div>
