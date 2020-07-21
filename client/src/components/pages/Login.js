@@ -1,28 +1,35 @@
-import React, { UseState, useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import { TextField, Grid } from "@material-ui/core";
+import { TextField, Grid, Avatar } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Register from "./Register";
-import { Link } from "react-router-dom";
-const useStyles = makeStyles({
+import { Link, useHistory } from "react-router-dom";
+import { Send } from "@material-ui/icons";
+import { UserContext } from "../../App";
+import avatar from "../avatar3.png";
+import M from "materialize-css";
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     height: "100%",
     margin: "3rem ",
   },
-
+  avatar: {
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+  },
   title: {
-    fontSize: 14,
-    alignContent: "left",
+    fontSize: 18,
+    alignContent: "center",
+    marginLeft: "10rem",
   },
   pos: {
     marginBottom: 12,
   },
-});
+}));
 const InputField = withStyles({
   root: {
     "& lablel.Mui-focused": {
@@ -45,9 +52,37 @@ const InputField = withStyles({
   },
 })(TextField);
 const Login = () => {
-  const [name, setName] = useState("");
+  const { state, dispatch } = useContext(UserContext);
+  const history = useHistory();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const PostData = () => {
+    fetch("/login", {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({ html: data.error });
+        } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "USER", payload: data.user });
+          M.toast({ html: "Login successful" });
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const classes = useStyles();
 
   return (
@@ -55,42 +90,59 @@ const Login = () => {
       <Grid container justify="center" height="">
         <Grid item xs={12} sm={6} md={4}>
           <Card className={classes.root}>
+            <Grid container justify="center">
+              <Avatar
+                className={classes.avatar}
+                src={avatar}
+                alt="Upswipe Logo"
+              />
+            </Grid>
+            <Typography
+              className={classes.title}
+              color="textPrimary"
+              gutterBottom
+              justify="center"
+            >
+              Upswipes
+            </Typography>
             <CardContent>
-              <Typography
-                className={classes.title}
-                color="textPrimary"
-                gutterBottom
-              >
-                Upswipes
-              </Typography>
               <Typography variant="h6" component="h6" align="left">
-                Email:
                 <InputField
                   fullWidth={true}
                   label="Email"
                   name="sender_message"
-                  variant="outlined"
+                  variant="standard"
                   margin="dense"
                   size="medium"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </Typography>
               <Typography variant="h6" component="h6" align="left">
-                Password:
                 <InputField
                   fullWidth={true}
                   label="Password"
                   name="sender_message"
-                  variant="outlined"
+                  variant="standard"
                   margin="dense"
                   size="medium"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </Typography>
             </CardContent>
             <CardActions>
-              <Button contained size="medium" color="primary" centerRipple>
+              <Button
+                contained
+                size="medium"
+                color="primary"
+                centerRipple
+                onClick={() => PostData()}
+              >
                 Login
+                <Send />
               </Button>
             </CardActions>
             <CardActions>

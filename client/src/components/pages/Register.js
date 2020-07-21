@@ -6,7 +6,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Send } from "@material-ui/icons";
+import M from "materialize-css";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -20,6 +22,10 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12,
+  },
+  toast: {
+    position: "top",
+    color: "green",
   },
 });
 const InputField = withStyles({
@@ -45,21 +51,34 @@ const InputField = withStyles({
 })(TextField);
 
 const Register = () => {
+  const history = useHistory();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const PostData = () => {
-    fetch("http://localhost:8080/register", {
+    fetch("/register", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "",
-        email: "",
-        password: "",
+        name,
+        email,
+        password,
       }),
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({ html: data.error, style: { color: "red" } });
+        } else {
+          M.toast({ html: data.message, style: { color: "blue" } });
+          history.push("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const classes = useStyles();
   return (
@@ -76,11 +95,11 @@ const Register = () => {
                 Upswipes
               </Typography>
               <Typography variant="h6" component="h6" align="left">
-                Name:
+                Full Name:
                 <InputField
                   fullWidth={true}
-                  label="Name"
-                  name="sender_message"
+                  label="Full Name"
+                  name="User_name"
                   variant="outlined"
                   margin="dense"
                   size="medium"
@@ -94,7 +113,7 @@ const Register = () => {
                 <InputField
                   fullWidth={true}
                   label="Email"
-                  name="sender_message"
+                  name="User_email"
                   variant="outlined"
                   margin="dense"
                   size="medium"
@@ -108,7 +127,7 @@ const Register = () => {
                 <InputField
                   fullWidth={true}
                   label="Password"
-                  name="sender_message"
+                  name="User_password"
                   variant="outlined"
                   margin="dense"
                   size="medium"
@@ -119,8 +138,15 @@ const Register = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button contained size="medium" color="primary" centerRipple>
+              <Button
+                contained
+                size="medium"
+                color="primary"
+                centerRipple
+                onClick={() => PostData()}
+              >
                 Register
+                <Send />
               </Button>
             </CardActions>
             <CardActions>

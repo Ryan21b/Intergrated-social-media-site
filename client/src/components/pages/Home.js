@@ -6,7 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import { Grid } from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+
 import { TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,7 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import img1 from "./back9.jpg";
-import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,27 +91,7 @@ const Home = () => {
             />
           </CardContent>
         </Card>
-        <IconButton
-          aria-label="Create post"
-          a
-          href="/createpost"
-          color="primary"
-          position="static"
-        >
-          <AddIcon />
-          <Typography>Create Post</Typography>
-        </IconButton>
       </Grid>
-      <IconButton
-        aria-label="Create post"
-        a
-        href="/createpost"
-        color="primary"
-        position="static"
-      >
-        <AddIcon a href="/createpost" />
-        <Typography>Create Post</Typography>
-      </IconButton>
     </>
   );
 };

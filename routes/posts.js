@@ -15,14 +15,16 @@ router.get("/allposts", (req, res) => {
     });
 });
 router.post("/createpost", Login_req, (req, res) => {
-  const { title, body } = req.body;
-  if (!title || !body) {
+  const { title, body, img } = req.body;
+  console.log(title, body, img);
+  if (!title || !body || !img) {
     return res.status(422).json({ error: "Please complete all fields" });
   }
   req.user.password = undefined;
   const post = new Post({
     title,
     body,
+    photo: img,
     postedBy: req.user,
   });
   post

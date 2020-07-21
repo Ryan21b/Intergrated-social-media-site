@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
@@ -27,4 +28,5 @@
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
   }
+  
 }

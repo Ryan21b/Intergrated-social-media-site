@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,8 +8,8 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import { Menu, Instagram } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-import { BottomNavigationAction } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { BottomNavigationAction, Link } from "@material-ui/core";
+import { UserContext } from "../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +69,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const renderList = () => {
+    if (state) {
+      return [
+        <Button color="inherit" a href="/profile">
+          Profile
+        </Button>,
+        <Button color="inherit" a href="/createpost">
+          Create Post
+        </Button>,
+      ];
+    } else {
+      return [
+        <Button color="inherit" a href="/register">
+          Register
+        </Button>,
+        <Button color="inherit" a href="/login">
+          Login
+        </Button>,
+      ];
+    }
+  };
+
   const classes = useStyles();
 
   return (
@@ -86,22 +109,12 @@ const Navbar = () => {
           <BottomNavigationAction
             style={{ padding: "0", color: "white" }}
             icon={<Instagram />}
-            a
-            href="/"
           />
 
           <Typography className={classes.title} variant="h6">
             UPSWIPES
           </Typography>
-          <Button color="inherit" a href="/register">
-            Register
-          </Button>
-          <Button color="inherit" a href="/login">
-            Login
-          </Button>
-          <Button color="inherit" a href="/profile">
-            Profile
-          </Button>
+          {renderList()}
         </Toolbar>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
