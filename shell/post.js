@@ -13,10 +13,17 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  hearts: [{ type: ObjectId, ref: "User" }],
+  comments: [
+    {
+      text: String,
+      postedBy: { type: ObjectId, ref: "User" },
+    },
+  ],
   postedBy: {
     type: ObjectId,
     ref: "User",
   },
 });
 
-mongoose.model("Post", postSchema);
+module.exports = mongoose.model("Post", postSchema);

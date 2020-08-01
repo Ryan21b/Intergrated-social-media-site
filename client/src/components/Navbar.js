@@ -10,6 +10,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import { BottomNavigationAction, Link } from "@material-ui/core";
 import { UserContext } from "../App";
+import { useHistory } from "react-router-dom";
+import Arrow from "@material-ui/icons/ArrowUpward";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
+  const history = useHistory();
   const renderList = () => {
     if (state) {
       return [
@@ -79,14 +82,29 @@ const Navbar = () => {
         <Button color="inherit" a href="/createpost">
           Create Post
         </Button>,
+        <Button
+          onClick={() => {
+            localStorage.clear();
+            dispatch({ type: "CLEAR" });
+            history.push("/login");
+          }}
+        >
+          Logout
+        </Button>,
       ];
     } else {
       return [
         <Button color="inherit" a href="/register">
           Register
         </Button>,
-        <Button color="inherit" a href="/login">
+        <Button color="inherit" a href="/">
           Login
+        </Button>,
+        <Button color="inherit" a href="/about">
+          About
+        </Button>,
+        <Button color="inherit" a href="/contact">
+          Contact
         </Button>,
       ];
     }
@@ -96,19 +114,13 @@ const Navbar = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="#222">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <Menu />
-          </IconButton>
           <BottomNavigationAction
-            style={{ padding: "0", color: "white" }}
-            icon={<Instagram />}
+            style={{ padding: "0", color: "#222" }}
+            icon={<Arrow />}
+            a
+            href="/home"
           />
 
           <Typography className={classes.title} variant="h6">
@@ -116,19 +128,6 @@ const Navbar = () => {
           </Typography>
           {renderList()}
         </Toolbar>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ "aria-label": "search" }}
-          />
-        </div>
       </AppBar>
     </div>
   );

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, Typography, Avatar, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { UserContext } from "../../App";
 import avatar from "../avatar3.png";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
+  const [myimgs, setPics] = useState([]);
+  const { state, dispatch } = useContext(UserContext);
+  console.log(state);
+  useEffect(() => {
+    fetch("/mypostsCoffin", {
+      headers: {
+        Authorization: "Holder " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setPics(result.mypost);
+      });
+  });
   const classes = useStyles();
   return (
     <>
@@ -44,9 +59,9 @@ const Profile = () => {
           color="textSecondary"
           component="p"
           justify="center"
-        >
-          Ryan Barron
-        </Typography>
+          title={state ? state.name : "loading"}
+        ></Typography>
+
         <Typography
           className={classes.subtitle}
           variant="h5"
@@ -67,91 +82,18 @@ const Profile = () => {
       <Box>
         <Grid container justify="center">
           <Grid item xs={10} sm={4} md={12}>
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-              justify="center"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
-            <img
-              src={avatar}
-              className={classes.root}
-              height="250"
-              alt="Ryan"
-            />
+            {myimgs.map((item) => {
+              return (
+                <img
+                  src={item.photo}
+                  alt={item.title}
+                  className={classes.root}
+                  height="250"
+                  alt="Ryan"
+                  justify="center"
+                />
+              );
+            })}
           </Grid>
         </Grid>
       </Box>

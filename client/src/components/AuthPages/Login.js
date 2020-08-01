@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { TextField, Grid, Avatar } from "@material-ui/core";
@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import { Send } from "@material-ui/icons";
 import { UserContext } from "../../App";
-import avatar from "../avatar3.png";
+import avatar from "../logo.png";
 import M from "materialize-css";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,8 +56,9 @@ const Login = () => {
   const history = useHistory();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const PostData = () => {
-    fetch("/login", {
+
+  const LogInfo = () => {
+    fetch("/loginCoffin", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +77,7 @@ const Login = () => {
           localStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
           M.toast({ html: "Login successful" });
-          history.push("/");
+          history.push("/home");
         }
       })
       .catch((err) => {
@@ -122,6 +123,7 @@ const Login = () => {
               <Typography variant="h6" component="h6" align="left">
                 <InputField
                   fullWidth={true}
+                  type="password"
                   label="Password"
                   name="sender_message"
                   variant="standard"
@@ -139,7 +141,7 @@ const Login = () => {
                 size="medium"
                 color="primary"
                 centerRipple
-                onClick={() => PostData()}
+                onClick={() => LogInfo()}
               >
                 Login
                 <Send />

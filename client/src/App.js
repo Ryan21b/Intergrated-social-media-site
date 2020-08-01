@@ -1,36 +1,29 @@
-import React, { useEffect, createContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, useHistory, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./components/pages/Home";
-import Login from "./components/pages/Login";
+import Login from "./components/AuthPages/Login";
 import Profile from "./components/pages/Profile";
-import Register from "./components/pages/Register";
+import Register from "./components/AuthPages/Register";
 import CreatePost from "./components/pages/CreatePost";
+import About from "./components/pages/About";
+import Contact from "./components/pages/Contact";
 
 import { initialState, reducer } from "./reducer/userReducer";
-import { useContext } from "react";
 
 export const UserContext = createContext();
 
 const Routing = () => {
   return (
     <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route path="/register">
-        <Register />
-      </Route>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/profile">
-        <Profile />
-      </Route>
-      <Route path="/createpost">
-        <CreatePost />
-      </Route>
+      <Route exact path="/" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/createpost" component={CreatePost} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/home" component={Home} />
     </Switch>
   );
 };

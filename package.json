@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
@@ -22,11 +21,12 @@
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
     "mongoose": "^5.9.18",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "react-typed": "^1.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
-  }
-  
+  },
+  "proxy": "http://localhost:8080"
 }
