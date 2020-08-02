@@ -17,19 +17,21 @@ import { ImageSharp } from "@material-ui/icons";
 
 const CreatePost = () => {
   const history = useHistory();
+  const [username, setUsername] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
   useEffect(() => {
     if (url) {
-      fetch("/createpostCoffin", {
+      fetch("/createpost", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Holder " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
+          username,
           title,
           body,
           img: url,
@@ -136,6 +138,18 @@ const CreatePost = () => {
               >
                 Create Post
               </Typography>
+              <InputField
+                fullWidth={true}
+                label="Username"
+                variant="standard"
+                name="username"
+                margin="dense"
+                size="medium"
+                className={classes.subtitle1}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
               <InputField
                 fullWidth={true}
                 label="Title"

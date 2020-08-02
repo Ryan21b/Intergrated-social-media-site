@@ -9,8 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import { Send } from "@material-ui/icons";
 import avatar from "../logo.png";
-
 import M from "materialize-css";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
@@ -62,7 +62,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const RegisterInfo = () => {
+  const RegInfo = () => {
     fetch("/registerCoffin", {
       method: "post",
       headers: {
@@ -70,16 +70,17 @@ const Register = () => {
       },
       body: JSON.stringify({
         name,
-        password,
         email,
+        password,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+          M.toast({ html: data.message });
+          history.push("/");
         } else {
-          M.toast({ html: data.message, classes: "#43a047 green darken-1" });
+          M.toast({ html: data.message });
           history.push("/");
         }
       })
@@ -157,7 +158,7 @@ const Register = () => {
                 size="medium"
                 color="primary"
                 centerRipple
-                onClick={() => RegisterInfo()}
+                onClick={() => RegInfo()}
               >
                 Register
                 <Send />

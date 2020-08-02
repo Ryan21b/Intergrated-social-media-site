@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Box, Typography, Avatar, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../../App";
-import avatar from "../avatar3.png";
+import avatar from "../logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,23 +61,6 @@ const Profile = () => {
           justify="center"
           title={state ? state.name : "loading"}
         ></Typography>
-
-        <Typography
-          className={classes.subtitle}
-          variant="h5"
-          color="textSecondary"
-          component="p"
-        >
-          Followers:34
-        </Typography>
-        <Typography
-          className={classes.subtitle}
-          variant="h5"
-          color="textSecondary"
-          component="p"
-        >
-          Following:78
-        </Typography>
       </Box>
       <Box>
         <Grid container justify="center">

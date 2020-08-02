@@ -47,16 +47,14 @@ const Contact = () => {
         />
       </Typography>
       <br />
-      <Typography className={classes.subtitle} variant="h4">
+      <Typography className={classes.subtitle} variant="h5">
         <Box>
-          <ContactMail />
-          Email: barronryan65@gmail.com
+          <ContactMail /> Email: barronryan65@gmail.com
         </Box>
       </Typography>
-      <Typography className={classes.subtitle} variant="h4">
+      <Typography className={classes.subtitle} variant="h5">
         <Box>
-          <Phone />
-          Cell No: 0649007584
+          <Phone /> Cell No: 0649007584
         </Box>
       </Typography>
       <br />

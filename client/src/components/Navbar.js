@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { Menu, Instagram } from "@material-ui/icons";
-import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-import { BottomNavigationAction, Link } from "@material-ui/core";
+import { BottomNavigationAction } from "@material-ui/core";
 import { UserContext } from "../App";
 import { useHistory } from "react-router-dom";
 import Arrow from "@material-ui/icons/ArrowUpward";
@@ -76,9 +72,6 @@ const Navbar = () => {
   const renderList = () => {
     if (state) {
       return [
-        <Button color="inherit" a href="/profile">
-          Profile
-        </Button>,
         <Button color="inherit" a href="/createpost">
           Create Post
         </Button>,
@@ -86,7 +79,7 @@ const Navbar = () => {
           onClick={() => {
             localStorage.clear();
             dispatch({ type: "CLEAR" });
-            history.push("/login");
+            history.push("/");
           }}
         >
           Logout
@@ -119,8 +112,11 @@ const Navbar = () => {
           <BottomNavigationAction
             style={{ padding: "0", color: "#222" }}
             icon={<Arrow />}
-            a
-            href="/home"
+            onClick={() => {
+              localStorage.clear();
+              dispatch({ type: "CLEAR" });
+              history.push("/");
+            }}
           />
 
           <Typography className={classes.title} variant="h6">

@@ -8,7 +8,7 @@ const { jwt_Secret } = require("../config/default.json");
 
 router.post("/registerCoffin", (req, res) => {
   const { name, email, password } = req.body;
-  if (!email || !password || !name) {
+  if (!name || !email || !password) {
     return res.status(422).json({ error: "Please fill all fields" });
   }
   User.findOne({ email: email }).then((savedUser) => {
@@ -18,9 +18,9 @@ router.post("/registerCoffin", (req, res) => {
 
     bcrypt.hash(password, 12).then((hashedpassword) => {
       const user = new User({
+        name,
         email,
         password: hashedpassword,
-        name,
       });
 
       user

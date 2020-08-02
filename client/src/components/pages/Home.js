@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import { Grid } from "@material-ui/core";
+import {
+  Grid,
+  BottomNavigationAction,
+  BottomNavigation,
+} from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import { TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ThumbDown from "@material-ui/icons/ThumbDownAltOutlined";
+import Logo from "../logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,28 +28,13 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-}));
-const InputField = withStyles({
-  root: {
-    "& lablel.Mui-focused": {
-      color: "#222",
-    },
-    "& label": {
-      color: "black",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "black",
-      },
-      "&:hover fieldset": {
-        borderColor: "black",
-      },
-      "& Mui-focused fieldset": {
-        borderColor: "black",
-      },
+  button: {
+    "&:click": {
+      fill: "red",
+      fontSize: "1.8rem",
     },
   },
-})(TextField);
+}));
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -63,11 +49,19 @@ const Home = () => {
         setData(result.posts);
       });
   }, []);
-  function myLike() {
-    document.getElementsByName(FavoriteIcon).style.color = "red";
-  }
 
   const classes = useStyles();
+  function LabelBottomNavigation() {
+    const [value, setValue] = React.useState("recents");
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  }
+  const [value, setValue] = React.useState("recents");
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return data.map((item) => {
     return (
       <>
@@ -75,37 +69,34 @@ const Home = () => {
           <Card className={classes.root}>
             <CardHeader
               avatar={
-                <Avatar aria-label="Testimonial" className={classes.avatar}>
-                  R
-                </Avatar>
+                <Avatar
+                  aria-label="Upswipes Logo"
+                  className={classes.avatar}
+                  src={Logo}
+                ></Avatar>
               }
-              action={<IconButton aria-label="settings"></IconButton>}
-              title="R"
             />
+            <Typography variant="h6" align="center">
+              {item.username}
+            </Typography>
             <CardMedia
               className={classes.media}
               image={item.photo}
-              title="Lecturer"
               height="350"
             />
-            <CardContent>
-              <Typography paragraph>{item.title}</Typography>
-              <Typography paragraph></Typography>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon onClick="myLike()" />
-              </IconButton>
-              <ThumbDown />
-              <Typography paragraph>{item.body}</Typography>
-              <InputField
-                fullWidth={true}
-                label="Comment"
-                name="sender_message"
-                variant="standard"
-                margin="dense"
-                size="medium"
-                required
+            <BottomNavigation value={value} onChange={handleChange}>
+              <BottomNavigationAction
+                label="Like"
+                value="favorites"
+                icon={<FavoriteIcon />}
               />
-            </CardContent>
+            </BottomNavigation>
+            <Typography variant="h6" align="center">
+              {item.title}
+            </Typography>
+            <Typography paragraph align="center">
+              {item.body}
+            </Typography>
           </Card>
         </Grid>
       </>
