@@ -1,64 +1,141 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Avatar, Grid, Box } from "@material-ui/core";
-import Typed from "react-typed";
-import avatar from "../avatar3.jpg";
-import { ContactMail, Phone } from "@material-ui/icons";
+import { makeStyles, withStyles } from "@material-ui/styles";
+import {
+  TextField,
+  Typography,
+  Button,
+  Grid,
+  Box,
+  Avatar,
+} from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import avatar from "../logo.png";
+import { Card } from "@material-ui/core";
 
-//CSS Styles
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-    margin: theme.spacing(1),
+  mainContainer: {
+    background: "#222",
   },
-  title: {
-    color: "white",
-  },
-  subtitle: {
-    color: "white",
-    marginBottom: "3rem",
-  },
-  typedContainer: {
-    position: "absolute",
-    top: "50%",
+  form: {
+    top: "30%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "100vw",
-    textAlign: "center",
-    zIndex: 1,
+    position: "absolute",
+    height: "10rem",
+  },
+  avatar: {
+    width: "5rem",
+    height: "5rem",
+  },
+  button: {
+    marginTop: "1rem",
+    color: "black",
   },
 }));
+
+const InputField = withStyles({
+  root: {
+    "& lablel.Mui-focused": {
+      color: "#222",
+    },
+    "& label": {
+      color: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "black",
+      },
+      "&:hover fieldset": {
+        borderColor: "black",
+      },
+      "& Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+})(TextField);
 
 const Contact = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.typedContainer}>
-      <Grid container justify="center">
-        <Avatar className={classes.avatar} src={avatar} alt="PlaceHolder" />
-      </Grid>
+    <>
+      <Box component="div" className={classes.mainContainer}>
+        <Grid container justify="center">
+          <Box component="form" className={classes.form}>
+            <Card>
+              <form action="https://formspree.io/mayppjel" method="POST">
+                <Grid container justify="center">
+                  <Avatar
+                    className={classes.avatar}
+                    src={avatar}
+                    alt="Upswipe Logo"
+                  />
+                </Grid>
+                <Typography
+                  variant="h5"
+                  style={{
+                    color: "black",
+                    textAlign: "center",
 
-      <Typography className={classes.title} variant="h3">
-        <Typed
-          strings={["Ryan Barron", "Junior Developer"]}
-          typeSpeed={40}
-          loop
-          backspeed={50}
-        />
-      </Typography>
-      <br />
-      <Typography className={classes.subtitle} variant="h5">
-        <Box>
-          <ContactMail /> Email: barronryan65@gmail.com
-        </Box>
-      </Typography>
-      <Typography className={classes.subtitle} variant="h5">
-        <Box>
-          <Phone /> Cell No: 0649007584
-        </Box>
-      </Typography>
-      <br />
-    </Box>
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Contact us
+                </Typography>
+
+                <InputField
+                  fullWidth={true}
+                  label="Name"
+                  variant="standard"
+                  name="sender_name"
+                  margin="dense"
+                  size="small"
+                  required
+                />
+                <InputField
+                  fullWidth={true}
+                  label="Email"
+                  color="#222"
+                  name="sender_email"
+                  variant="standard"
+                  margin="dense"
+                  size="medium"
+                  required
+                />
+                <InputField
+                  fullWidth={true}
+                  label="Company Name"
+                  name="sender_company"
+                  variant="standard"
+                  margin="dense"
+                  size="medium"
+                  required
+                />
+                <InputField
+                  fullWidth={true}
+                  label="Message"
+                  name="sender_message"
+                  variant="standard"
+                  margin="dense"
+                  size="medium"
+                  required
+                />
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  fullWidth={true}
+                  endIcon={<SendIcon />}
+                  className={classes.button}
+                >
+                  Contact Me....
+                </Button>
+              </form>
+            </Card>
+          </Box>
+        </Grid>
+      </Box>
+    </>
   );
 };
+
 export default Contact;

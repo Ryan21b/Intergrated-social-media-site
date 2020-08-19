@@ -64,7 +64,7 @@ const Register = () => {
 
   const RegInfo = () => {
     fetch("/registerCoffin", {
-      method: "post",
+      method: "Post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -77,10 +77,8 @@ const Register = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          M.toast({ html: data.message });
           history.push("/");
         } else {
-          M.toast({ html: data.message });
           history.push("/");
         }
       })

@@ -30,6 +30,7 @@ router.post("/createpost", Login_req, (req, res) => {
     .save()
     .then((result) => {
       res.json({ post: result });
+      z;
     })
     .catch((err) => {
       console.log(err);

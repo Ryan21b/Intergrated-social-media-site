@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { TextField, Grid, Avatar } from "@material-ui/core";
@@ -111,7 +111,7 @@ const Login = () => {
                 <InputField
                   fullWidth={true}
                   label="Email"
-                  name="sender_message"
+                  name="Email"
                   variant="standard"
                   margin="dense"
                   size="medium"

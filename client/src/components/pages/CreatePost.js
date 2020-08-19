@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
   Grid,
+  CardContent,
 } from "@material-ui/core";
 
 import SendIcon from "@material-ui/icons/SendOutlined";
@@ -15,6 +16,55 @@ import M from "materialize-css";
 import { useHistory } from "react-router-dom";
 import { ImageSharp } from "@material-ui/icons";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: 275,
+    height: "100%",
+    margin: "3rem ",
+  },
+  avatar: {
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+  },
+  title: {
+    fontSize: 18,
+    alignContent: "center",
+    marginLeft: "10rem",
+  },
+  subtitle1: {
+    marginBottom: "1rem",
+  },
+  subtitle2: {
+    marginBottom: "2rem",
+  },
+  subtitle3: {
+    marginBottom: "2rem",
+  },
+  pos: {
+    marginBottom: 12,
+  },
+}));
+const InputField = withStyles({
+  root: {
+    "& lablel.Mui-focused": {
+      color: "#222",
+    },
+    "& label": {
+      color: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "black",
+      },
+      "&:hover fieldset": {
+        borderColor: "black",
+      },
+      "& Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+})(TextField);
 const CreatePost = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
@@ -71,55 +121,7 @@ const CreatePost = () => {
         console.log(err);
       });
   };
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      minWidth: 275,
-      height: "100%",
-      margin: "3rem ",
-    },
-    avatar: {
-      width: theme.spacing(15),
-      height: theme.spacing(15),
-    },
-    title: {
-      fontSize: 18,
-      alignContent: "center",
-      marginLeft: "10rem",
-    },
-    subtitle1: {
-      marginBottom: "1rem",
-    },
-    subtitle2: {
-      marginBottom: "2rem",
-    },
-    subtitle3: {
-      marginBottom: "2rem",
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  }));
-  const InputField = withStyles({
-    root: {
-      "& lablel.Mui-focused": {
-        color: "#222",
-      },
-      "& label": {
-        color: "black",
-      },
-      "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "black",
-        },
-        "&:hover fieldset": {
-          borderColor: "black",
-        },
-        "& Mui-focused fieldset": {
-          borderColor: "black",
-        },
-      },
-    },
-  })(TextField);
+
   const classes = useStyles();
   return (
     <>
@@ -138,68 +140,70 @@ const CreatePost = () => {
               >
                 Create Post
               </Typography>
-              <InputField
-                fullWidth={true}
-                label="Username"
-                variant="standard"
-                name="username"
-                margin="dense"
-                size="medium"
-                className={classes.subtitle1}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <InputField
-                fullWidth={true}
-                label="Title"
-                variant="standard"
-                name="post_title"
-                margin="dense"
-                size="medium"
-                className={classes.subtitle1}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-              <InputField
-                fullWidth={true}
-                label="Body"
-                name="post_body"
-                variant="standard"
-                margin="dense"
-                size="medium"
-                className={classes.subtitle1}
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                required
-              />
-              <Button
-                variant="contained"
-                component="label"
-                color="primary"
-                className={classes.subtitle2}
-              >
-                <ImageSharp />
-                <Typography>Upload Image</Typography>
+              <CardContent>
+                <Typography variant="h6" component="h6" align="left">
+                  <InputField
+                    fullWidth={true}
+                    label="Username"
+                    variant="standard"
+                    name="username"
+                    size="medium"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </Typography>
                 <InputField
-                  input
-                  type="file"
-                  onChange={(e) => setImage(e.target.files[0])}
-                  style={{ display: "none" }}
+                  fullWidth={true}
+                  label="Title"
+                  variant="standard"
+                  name="post_title"
+                  margin="dense"
+                  size="medium"
+                  className={classes.subtitle1}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
                 />
-              </Button>
+                <InputField
+                  fullWidth={true}
+                  label="Body"
+                  name="post_body"
+                  variant="standard"
+                  margin="dense"
+                  size="medium"
+                  className={classes.subtitle1}
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
+                  required
+                />
+                <Button
+                  variant="contained"
+                  component="label"
+                  color="primary"
+                  className={classes.subtitle2}
+                >
+                  <ImageSharp />
+                  <Typography>Upload Image</Typography>
+                  <InputField
+                    input
+                    type="file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    style={{ display: "none" }}
+                  />
+                </Button>
 
-              <Button
-                type="submit"
-                variant="outlined"
-                fullWidth={true}
-                component="label"
-                endIcon={<SendIcon />}
-                onClick={() => Coffinpost()}
-              >
-                Submit
-              </Button>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  fullWidth={true}
+                  component="label"
+                  endIcon={<SendIcon />}
+                  onClick={() => Coffinpost()}
+                >
+                  Submit
+                </Button>
+              </CardContent>
             </Card>
           </Box>
         </Grid>

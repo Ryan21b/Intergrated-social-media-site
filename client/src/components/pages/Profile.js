@@ -72,7 +72,7 @@ const Profile = () => {
                   alt={item.title}
                   className={classes.root}
                   height="250"
-                  alt="Ryan"
+                  alt="Photo"
                   justify="center"
                 />
               );
