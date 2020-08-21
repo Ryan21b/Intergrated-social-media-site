@@ -6,12 +6,14 @@ import {
   Grid,
   BottomNavigationAction,
   BottomNavigation,
+  Button,
 } from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Delete from "@material-ui/icons/Delete";
 import Logo from "../logo.png";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +52,23 @@ const Home = () => {
       });
   }, []);
 
+  const deletePost = (postid) => {
+    fetch(`/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter((item) => {
+          return item._id !== result._id;
+        });
+        setData(newData);
+      });
+  };
+
   const classes = useStyles();
   function LabelBottomNavigation() {
     const [value, setValue] = React.useState("recents");
@@ -83,6 +102,7 @@ const Home = () => {
               className={classes.media}
               image={item.photo}
               height="350"
+              width="450"
             />
             <BottomNavigation value={value} onChange={handleChange}>
               <BottomNavigationAction
@@ -97,6 +117,10 @@ const Home = () => {
             <Typography paragraph align="center">
               {item.body}
             </Typography>
+            <Button onClick={() => deletePost(item._id)}>
+              <Delete />
+              Delete Post
+            </Button>
           </Card>
         </Grid>
       </>

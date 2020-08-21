@@ -4,7 +4,6 @@ import { Typography, Avatar, Grid, Box } from "@material-ui/core";
 import Typed from "react-typed";
 import avatar from "../logo.png";
 
-//CSS Styles
 const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(15),
@@ -32,33 +31,36 @@ const useStyles = makeStyles((theme) => ({
 const About = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.typedContainer}>
-      <Grid container justify="center">
-        <Avatar className={classes.avatar} src={avatar} alt="PlaceHolder" />
-      </Grid>
+    <>
+      <Box className={classes.typedContainer}>
+        <Grid container justify="center">
+          <Avatar className={classes.avatar} src={avatar} alt="PlaceHolder" />
+        </Grid>
 
-      <Typography className={classes.title} variant="h3">
-        <Typed
-          strings={[
-            "Upswipes central",
-            "Version: 1.1",
-            "Created by: Ryan Barron",
-          ]}
-          typeSpeed={40}
-          loop
-          backspeed={50}
-        />
-      </Typography>
-      <br />
-      <Typography className={classes.subtitle} variant="h4">
-        <Typed
-          strings={["Stay Tuned as the Journey continues"]}
-          typeSpeed={40}
-          backspeed={60}
-          loop
-        />
-      </Typography>
-    </Box>
+        <Typography className={classes.title} variant="h3">
+          <Typed
+            strings={[
+              "Upswipes central",
+              "Version: 1.1",
+              "Created by: Ryan Barron",
+            ]}
+            typeSpeed={40}
+            loop
+            backspeed={50}
+          />
+        </Typography>
+        <br />
+        <Typography className={classes.subtitle} variant="h4">
+          <Typed
+            strings={["Stay Tuned as the Journey continues"]}
+            typeSpeed={40}
+            backspeed={60}
+            loop
+          />
+        </Typography>
+      </Box>
+      <Box></Box>
+    </>
   );
 };
 export default About;

@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  confirmpassword: {
+    type: String,
+    required: true,
+  },
 });
 
 mongoose.model("User", userSchema);

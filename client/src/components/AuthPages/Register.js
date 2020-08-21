@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import { Send } from "@material-ui/icons";
 import avatar from "../logo.png";
-import M from "materialize-css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,6 +124,7 @@ const Register = () => {
                 <InputField
                   fullWidth={true}
                   label="Email"
+                  type="email"
                   name="User_email"
                   variant="outlined"
                   margin="dense"
@@ -139,6 +139,21 @@ const Register = () => {
                 <InputField
                   fullWidth={true}
                   label="Password"
+                  type="password"
+                  name="User_password"
+                  variant="outlined"
+                  margin="dense"
+                  size="medium"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Typography>
+              <Typography variant="h6" component="h6" align="left">
+                Confirm password:
+                <InputField
+                  fullWidth={true}
+                  label="Confirm password"
                   type="password"
                   name="User_password"
                   variant="outlined"

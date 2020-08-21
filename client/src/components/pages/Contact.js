@@ -11,6 +11,7 @@ import {
 import SendIcon from "@material-ui/icons/Send";
 import avatar from "../logo.png";
 import { Card } from "@material-ui/core";
+import { ContactMail } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
     position: "absolute",
     height: "10rem",
+    padding: "4rem",
   },
   avatar: {
     width: "5rem",
@@ -92,8 +94,10 @@ const Contact = () => {
                   size="small"
                   required
                 />
+
                 <InputField
                   fullWidth={true}
+                  icon={<ContactMail />}
                   label="Email"
                   color="#222"
                   name="sender_email"

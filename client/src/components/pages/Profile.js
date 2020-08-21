@@ -29,7 +29,7 @@ const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
   console.log(state);
   useEffect(() => {
-    fetch("/mypostsCoffin", {
+    fetch("/myposts", {
       headers: {
         Authorization: "Holder " + localStorage.getItem("jwt"),
       },
@@ -59,7 +59,7 @@ const Profile = () => {
           color="textSecondary"
           component="p"
           justify="center"
-          title={state ? state.name : "loading"}
+          title={""}
         ></Typography>
       </Box>
       <Box>
