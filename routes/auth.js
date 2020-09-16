@@ -7,19 +7,15 @@ const jwt = require("jsonwebtoken");
 const { jwt_Secret } = require("../config/default.json");
 
 router.post("/registerCoffin", (req, res) => {
-  const { name, email, password, confirmpassword } = req.body;
-  if (!name || !email || !password || !confirmpassword) {
+  const { name, email, password} = req.body;
+  if (!name || !email || !password) {
     return res.status(422).json({ error: "Please fill all fields" });
   }
   User.findOne({ email: email }).then((savedUser) => {
     if (savedUser) {
       return res.status(422).json({ error: "Please try different email" });
-    }
-    User.findOne({ confirmpassword: password }).then((savedUser) => {
-      if (savedUser) {
-        return res.json({ error: "Passwords do not match" });
-      }
     });
+    
     bcrypt.hash(password, 12).then((hashedpassword) => {
       const user = new User({
         name,
