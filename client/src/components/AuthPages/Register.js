@@ -149,21 +149,8 @@ const Register = () => {
                   required
                 />
               </Typography>
-              <Typography variant="h6" component="h6" align="left">
-                Confirm password:
-                <InputField
-                  fullWidth={true}
-                  label="Confirm password"
-                  type="password"
-                  name="User_password"
-                  variant="outlined"
-                  margin="dense"
-                  size="medium"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Typography>
+     
+             
             </CardContent>
             <CardActions>
               <Button
